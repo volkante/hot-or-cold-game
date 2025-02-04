@@ -1,5 +1,3 @@
-//Declare startButton assig in to class .start-button. When startButton is clicked, create a randomNum and assign it to a variable called randomNum
-
 const startButton = document.querySelector(".start-button");
 const checkButton = document.querySelector(".check-button");
 
@@ -23,8 +21,23 @@ let guessArr = [];
 let countTry = 0;
 let randomNum;
 
-const resetStart = () => {
+const checkIsFinished = () => {
+  console.log("BURASI", countTry);
+  if (guessArr.length >= 5 || countTry >= 5) {
+    console.log("You lost. Generate a new random number to start");
+    checkButton.disabled = true;
+    startGame();
+    randomNum = null;
+    return;
+  }
+};
+
+const startGame = () => {
+  if (countTry >= 5) {
+    return;
+  }
   guessArr = [];
+  checkButton.disabled = false;
 };
 
 const createRandomNum = () => {
@@ -33,6 +46,34 @@ const createRandomNum = () => {
 
 const congratulateWinner = () => {
   console.log("You got it!");
+};
+
+const determineCloseness = (countTry) => {
+  if (countTry === 2) {
+    previousGuess = guessArr[0];
+    currentGuess = guessArr[1];
+    Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
+      ? console.log("cold")
+      : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
+      ? console.log("hot")
+      : console.log("same!");
+  } else if (countTry === 3) {
+    previousGuess = guessArr[1];
+    currentGuess = guessArr[2];
+    Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
+      ? console.log("cold")
+      : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
+      ? console.log("hot")
+      : console.log("same!");
+  } else if (countTry === 4) {
+    previousGuess = guessArr[2];
+    currentGuess = guessArr[3];
+    Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
+      ? console.log("cold")
+      : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
+      ? console.log("hot")
+      : console.log("same!");
+  }
 };
 
 // ekleme
@@ -60,43 +101,25 @@ const decrease = () => {
 //ekleme son
 
 startButton.addEventListener("click", () => {
-  resetStart();
+  startGame();
   randomNum = createRandomNum();
   console.log("randomNum:", randomNum);
 });
 
-checkButton.addEventListener("click", (e) => {
+checkButton.addEventListener("click", () => {
+  checkIsFinished();
   const userGuess = value;
-
   console.log("user guess", userGuess);
   if (userGuess === randomNum) {
     congratulateWinner();
     countTry = 0;
-    input.value = "🎉";
+    startGame();
   } else {
     countTry++;
     console.log(`${countTry}. try.`);
     guessArr.push(userGuess);
+    checkIsFinished();
     console.log("guessArr: ", guessArr);
-    //TODO: Bu aşağıyı bir function'a al.
-    if (countTry === 2) {
-      previousGuess = guessArr[0];
-      currentGuess = guessArr[1];
-      Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
-        ? console.log("soğuk")
-        : console.log("sıcak");
-    } else if (countTry === 3) {
-      previousGuess = guessArr[1];
-      currentGuess = guessArr[2];
-      Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
-        ? console.log("soğuk")
-        : console.log("sıcak");
-    } else if (countTry === 4) {
-      previousGuess = guessArr[2];
-      currentGuess = guessArr[3];
-      Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
-        ? console.log("soğuk")
-        : console.log("sıcak");
-    }
+    determineCloseness(countTry);
   }
 });

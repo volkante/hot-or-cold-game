@@ -31,14 +31,6 @@ h1 {
   letter-spacing: 2px;
 }
 
-.hot-span {
-  /* color: red; */
-}
-
-.cold-span {
-  /* color: rgb(0, 255, 255); */
-}
-
 .button-82-pushable {
   position: relative;
   border: none;
@@ -233,3 +225,7 @@ h1 {
 p {
   font-family: poppins;
 }
+
+/* .check-button {
+
+} */
