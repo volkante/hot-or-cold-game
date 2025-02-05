@@ -2,7 +2,8 @@ const startButton = document.querySelector(".start-button");
 const checkButton = document.querySelector(".check-button");
 
 const scoreSpan = document.querySelector(".score");
-const hintSpan = document.querySelector(".hint-span");
+const hintEmoji = document.querySelector(".hint-emoji");
+const hintText = document.querySelector(".hint-text");
 
 // ekleme
 const input = document.querySelector(".number-input");
@@ -17,27 +18,33 @@ number.innerHTML = value;
 let previousGuess;
 let currentGuess;
 let guessArr = [];
-
 let countTry = 0;
 let randomNum;
+const emojiObj = {
+  hot: "Hot 🔥",
+  cold: "Cold 🥶",
+  neutral: "Same 😐",
+  lost: "🤦‍♀️",
+  win: "🎉",
+};
 
 const checkIsFinished = () => {
-  console.log("BURASI", countTry);
   if (guessArr.length >= 5 || countTry >= 5) {
-    console.log("You lost. Generate a new random number to start");
+    hintText.textContent = `You lost. Generated number was "${randomNum}". Generate a new random number to start`;
+    hintEmoji.textContent = emojiObj.lost;
     checkButton.disabled = true;
-    startGame();
     randomNum = null;
     return;
   }
 };
 
 const startGame = () => {
-  if (countTry >= 5) {
-    return;
-  }
+  countTry = 0;
   guessArr = [];
   checkButton.disabled = false;
+  hintText.textContent = "Hint: ";
+  hintEmoji.textContent = "";
+  scoreSpan.textContent = "";
 };
 
 const createRandomNum = () => {
@@ -46,6 +53,19 @@ const createRandomNum = () => {
 
 const congratulateWinner = () => {
   console.log("You got it!");
+  hintText.textContent = "You got it!";
+  hintEmoji.textContent = emojiObj.win;
+  // if (guessArr.length === 5) {
+  //   scoreSpan.textContent = "5";
+  // } else if (guessArr.length === 4) {
+  //   scoreSpan.textContent = "10";
+  // } else if (guessArr.length === 3) {
+  //   scoreSpan.textContent = "30";
+  // } else if (guessArr.length === 2) {
+  //   scoreSpan.textContent = "50";
+  // } else if (guessArr.length === 1) {
+  //   scoreSpan.textContent = "5";
+  // }
 };
 
 const determineCloseness = (countTry) => {
@@ -53,26 +73,26 @@ const determineCloseness = (countTry) => {
     previousGuess = guessArr[0];
     currentGuess = guessArr[1];
     Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
-      ? console.log("cold")
+      ? (hintEmoji.textContent = emojiObj.cold)
       : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
-      ? console.log("hot")
-      : console.log("same!");
+      ? (hintEmoji.textContent = emojiObj.hot)
+      : (hintEmoji.textContent = emojiObj.neutral);
   } else if (countTry === 3) {
     previousGuess = guessArr[1];
     currentGuess = guessArr[2];
     Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
-      ? console.log("cold")
+      ? (hintEmoji.textContent = emojiObj.cold)
       : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
-      ? console.log("hot")
-      : console.log("same!");
+      ? (hintEmoji.textContent = emojiObj.hot)
+      : (hintEmoji.textContent = emojiObj.neutral);
   } else if (countTry === 4) {
     previousGuess = guessArr[2];
     currentGuess = guessArr[3];
     Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
-      ? console.log("cold")
+      ? (hintEmoji.textContent = emojiObj.cold)
       : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
-      ? console.log("hot")
-      : console.log("same!");
+      ? (hintEmoji.textContent = emojiObj.hot)
+      : (hintEmoji.textContent = emojiObj.neutral);
   }
 };
 
@@ -113,7 +133,7 @@ checkButton.addEventListener("click", () => {
   if (userGuess === randomNum) {
     congratulateWinner();
     countTry = 0;
-    startGame();
+    //startGame();
   } else {
     countTry++;
     console.log(`${countTry}. try.`);
