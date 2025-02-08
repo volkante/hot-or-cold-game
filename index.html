@@ -77,6 +77,37 @@
 
       <!--  -->
     </div>
+    <script>
+      const nums = [120, 50, 92, 65, 22, 34, 784, 133, 9];
+      //[120,92,65,50,34,784,133,22,9]
+      //[120,92,65,50,784,133,34,22,9];
+
+      // for (let i = 0; i < nums.length - 1; i++) {
+      //   if (nums[i] < nums[i + 1]) {
+      //     let temp = nums[i];
+      //     nums[i] = nums[i + 1];
+      //     nums[i + 1] = temp;
+      //   }
+      // }
+
+      const n = nums.length;
+      debugger;
+      for (let i = 0; i < n - 1; i++) {
+        for (let j = 0; j < n - i - 1; j++) {
+          if (nums[j] < nums[j + 1]) {
+            // Yer değiştir
+            let temp = nums[j];
+            nums[j] = nums[j + 1];
+            console.log(nums[j]);
+            nums[j + 1] = temp;
+            console.log(nums[j + 1]);
+          }
+          console.log(nums);
+        }
+        console.log(nums);
+      }
+      console.log("nums: ", nums);
+    </script>
     <script src="js/script.js"></script>
   </body>
 </html>
