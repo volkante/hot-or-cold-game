@@ -5,7 +5,7 @@ const scoreSpan = document.querySelector(".score");
 const hintEmoji = document.querySelector(".hint-emoji");
 const hintText = document.querySelector(".hint-text");
 
-// ekleme
+// pick number button
 const input = document.querySelector(".number-input");
 const min = input.getAttribute("min");
 const max = input.getAttribute("max");
@@ -13,7 +13,7 @@ const step = Number(input.getAttribute("step") || 1);
 let value = Number(input.getAttribute("value") || 0);
 let number = document.querySelector(".number");
 number.innerHTML = value;
-//ekleme son
+//
 
 let previousGuess;
 let currentGuess;
@@ -30,8 +30,8 @@ const emojiObj = {
 
 const checkIsFinished = () => {
   if (guessArr.length >= 5 || countTry >= 5) {
-    hintText.textContent = `You lost. Generated number was "${randomNum}". Generate a new random number to start`;
-    hintEmoji.textContent = emojiObj.lost;
+    hintText.textContent = `You lost🤦‍♀️. Generated number was "${randomNum}". Generate a new random number to start🏁.`;
+    hintEmoji.textContent = "";
     checkButton.disabled = true;
     randomNum = null;
     return;
@@ -42,34 +42,38 @@ const startGame = () => {
   countTry = 0;
   guessArr = [];
   checkButton.disabled = false;
-  hintText.textContent = "Hint: ";
+  hintText.textContent = "Random number created.";
   hintEmoji.textContent = "";
   scoreSpan.textContent = "";
 };
 
 const createRandomNum = () => {
-  return Math.ceil(Math.random() * 20);
+  return Math.ceil(Math.random() * 25);
 };
 
 const congratulateWinner = () => {
-  console.log("You got it!");
+  checkButton.disabled = true;
   hintText.textContent = "You got it!";
   hintEmoji.textContent = emojiObj.win;
-  // if (guessArr.length === 5) {
-  //   scoreSpan.textContent = "5";
-  // } else if (guessArr.length === 4) {
-  //   scoreSpan.textContent = "10";
-  // } else if (guessArr.length === 3) {
-  //   scoreSpan.textContent = "30";
-  // } else if (guessArr.length === 2) {
-  //   scoreSpan.textContent = "50";
-  // } else if (guessArr.length === 1) {
-  //   scoreSpan.textContent = "5";
-  // }
+  console.log("guessArr büyüklüğü", guessArr.length);
+  if (guessArr.length === 0) {
+    scoreSpan.textContent = "100";
+    console.log("dnenen");
+  } else if (guessArr.length === 1) {
+    scoreSpan.textContent = "50";
+  } else if (guessArr.length === 2) {
+    scoreSpan.textContent = "30";
+  } else if (guessArr.length === 3) {
+    scoreSpan.textContent = "10";
+  }
 };
 
 const determineCloseness = (countTry) => {
-  if (countTry === 2) {
+  if (countTry === 1) {
+    hintText.textContent =
+      "Hint will be given starting from the second guess😉.";
+  } else if (countTry === 2) {
+    hintText.textContent = "";
     previousGuess = guessArr[0];
     currentGuess = guessArr[1];
     Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)

@@ -30,7 +30,7 @@
         <span class="button-82-front text"> Generate random number </span>
       </button>
       <div class="center">
-        <div class="number-input" min="0" max="20" step="1" value="0">
+        <div class="number-input" min="0" max="25" step="1" value="0">
           <button type="button" class="btn" onclick="decrease()">
             <span class="material-icons-outlined">remove</span>
           </button>
@@ -60,16 +60,22 @@
       </p>
 
       <section class="scores">
-        <p>Latest Score: <span class="score">0</span></p>
+        <p>Score: <span class="score">0</span></p>
       </section>
 
       <section class="rules">
         <h4>Rules</h4>
+        <p>
+          Click Generate Random Number to get a hidden number between 1 and 25.
+        </p>
+        <p>
+          From your second guess, get a "Hot 🔥" hint if closer, or "Cold 🥶" if
+          farther.
+        </p>
         <p>🕵️ Guess the number on your 1st try, and you win 100 points! 😎</p>
         <p>🎯 Got it on your 2nd try? That’s 50 points for you! 😃</p>
         <p>🤔 If you guess it on your 3rd try, you’ll earn 30 points. 😊</p>
-        <p>🚶‍♂️ On your 4th try, you get 10 points. 👍</p>
-        <p>🥱 Made it on your 5th try? Well, that’s 5 points. 😐</p>
+        <p>🥱 On your 4th try, you get 10 points. 👍</p>
         <p>😢 If you can’t guess the number after 5 tries, you lose. 🤦‍♀️</p>
       </section>
 
@@ -78,7 +84,7 @@
       <!--  -->
     </div>
     <script>
-      const nums = [65, 22, 9, 133, 784, 42, 53];
+      /* const nums = [65, 22, 9, 133, 784, 42, 53];
       for (let i = 0; i < nums.length - 1; i++) {
         for (let j = 0; j < nums.length - i - 1; j++) {
           if (nums[j] < nums[j + 1]) {
@@ -89,7 +95,7 @@
           }
         }
       }
-      console.log("nums: ", nums);
+      console.log("nums: ", nums); */
     </script>
     <script src="js/script.js"></script>
   </body>

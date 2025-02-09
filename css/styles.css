@@ -234,3 +234,23 @@ p {
 .hint-emoji {
   font-size: 20px;
 }
+
+/* Media query? */
+
+@media (max-width: 440px) {
+  .body {
+    width: 100vw;
+  }
+
+  .container {
+    width: 100%;
+    height: 100vh;
+    gap: 25px;
+  }
+
+  .rules {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
