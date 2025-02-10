@@ -137,7 +137,6 @@ checkButton.addEventListener("click", () => {
   if (userGuess === randomNum) {
     congratulateWinner();
     countTry = 0;
-    //startGame();
   } else {
     countTry++;
     console.log(`${countTry}. try.`);
