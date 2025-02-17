@@ -55,10 +55,8 @@ const congratulateWinner = () => {
   checkButton.disabled = true;
   hintText.textContent = "You got it!";
   hintEmoji.textContent = emojiObj.win;
-  console.log("guessArr büyüklüğü", guessArr.length);
   if (guessArr.length === 0) {
     scoreSpan.textContent = "100";
-    console.log("dnenen");
   } else if (guessArr.length === 1) {
     scoreSpan.textContent = "50";
   } else if (guessArr.length === 2) {
