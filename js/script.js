@@ -1,3 +1,4 @@
+//select relevant elements
 const startButton = document.querySelector(".start-button");
 const checkButton = document.querySelector(".check-button");
 
@@ -15,6 +16,7 @@ let number = document.querySelector(".number");
 number.innerHTML = value;
 //
 
+//declare guess and related variables
 let previousGuess;
 let currentGuess;
 let guessArr = [];
@@ -28,6 +30,7 @@ const emojiObj = {
   win: "🎉",
 };
 
+//define functions
 const checkIsFinished = () => {
   if (guessArr.length >= 5 || countTry >= 5) {
     hintText.textContent = `You lost🤦‍♀️. Generated number was "${randomNum}". Generate a new random number to start🏁.`;
@@ -122,6 +125,7 @@ const decrease = () => {
 };
 //ekleme son
 
+//add event listeners
 startButton.addEventListener("click", () => {
   startGame();
   randomNum = createRandomNum();
