@@ -220,7 +220,14 @@ h1 {
 .scores {
   width: 60%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  gap: 136px;
+}
+
+.current-score-paragraph {
+}
+
+.highest-score-paragraph {
 }
 
 p {

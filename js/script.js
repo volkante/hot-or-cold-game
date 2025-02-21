@@ -3,6 +3,7 @@ const startButton = document.querySelector(".start-button");
 const checkButton = document.querySelector(".check-button");
 
 const scoreSpan = document.querySelector(".score");
+const highestScoreSpan = document.querySelector(".highest-score");
 const hintEmoji = document.querySelector(".hint-emoji");
 const hintText = document.querySelector(".hint-text");
 
@@ -29,6 +30,8 @@ const emojiObj = {
   lost: "🤦‍♀️",
   win: "🎉",
 };
+let highestScore = localStorage.getItem("highestScore");
+highestScoreSpan.textContent = highestScore;
 
 //define functions
 const checkIsFinished = () => {
@@ -54,19 +57,37 @@ const createRandomNum = () => {
   return Math.ceil(Math.random() * 25);
 };
 
+const setLocalStorage = () => {
+  if (!localStorage.getItem("highestScore")) {
+    localStorage.setItem("highestScore", highestScore);
+  } else if (highestScore > localStorage.getItem("highestScore")) {
+    localStorage.setItem("highestScore", highestScore);
+  }
+};
+
 const congratulateWinner = () => {
   checkButton.disabled = true;
   hintText.textContent = "You got it!";
   hintEmoji.textContent = emojiObj.win;
+
   if (guessArr.length === 0) {
     scoreSpan.textContent = "100";
+    highestScore = 100;
   } else if (guessArr.length === 1) {
     scoreSpan.textContent = "50";
+    highestScore = 50;
   } else if (guessArr.length === 2) {
     scoreSpan.textContent = "30";
+    highestScore = 30;
   } else if (guessArr.length === 3) {
     scoreSpan.textContent = "10";
+    highestScore = 10;
+  } else if (guessArr.length === 4) {
+    scoreSpan.textContent = "5";
+    highestScore = 5;
   }
+  highestScoreSpan.textContent = highestScore;
+  setLocalStorage();
 };
 
 const determineCloseness = (countTry) => {
@@ -129,7 +150,7 @@ const decrease = () => {
 startButton.addEventListener("click", () => {
   startGame();
   randomNum = createRandomNum();
-  console.log("randomNum:", randomNum);
+  console.log("randomNum:", randomNum); //DELETE LOG
 });
 
 checkButton.addEventListener("click", () => {
@@ -141,10 +162,15 @@ checkButton.addEventListener("click", () => {
     countTry = 0;
   } else {
     countTry++;
-    console.log(`${countTry}. try.`);
+    console.log(`${countTry}. try.`); //DELETE LOG
     guessArr.push(userGuess);
     checkIsFinished();
-    console.log("guessArr: ", guessArr);
+    console.log("guessArr: ", guessArr); //DELETE LOG
     determineCloseness(countTry);
   }
 });
+
+//TODO süre eklenip puan onun üzerinden hesaplanabilir. Ne kadar kısa süre o kadar çok puan.
+//TODO ilki üzerinden highest score eklenip localstorage'da tutulabilir. Şu an 100 puanı tutmaya gerek yok ama.
+//TODO kazanınca konfeti atılabilir. Ekranda
+//TODO responsive tasarım. Mobile'e uygun yapılmalı. Şu an yazılar kayıyor.
