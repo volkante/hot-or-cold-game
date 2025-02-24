@@ -150,7 +150,6 @@ const decrease = () => {
 startButton.addEventListener("click", () => {
   startGame();
   randomNum = createRandomNum();
-  console.log("randomNum:", randomNum); //DELETE LOG
 });
 
 checkButton.addEventListener("click", () => {
@@ -162,10 +161,8 @@ checkButton.addEventListener("click", () => {
     countTry = 0;
   } else {
     countTry++;
-    console.log(`${countTry}. try.`); //DELETE LOG
     guessArr.push(userGuess);
     checkIsFinished();
-    console.log("guessArr: ", guessArr); //DELETE LOG
     determineCloseness(countTry);
   }
 });
