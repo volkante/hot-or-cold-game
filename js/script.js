@@ -1,7 +1,6 @@
 //select relevant elements
 const startButton = document.querySelector(".start-button");
 const checkButton = document.querySelector(".check-button");
-
 const scoreSpan = document.querySelector(".score");
 const highestScoreSpan = document.querySelector(".highest-score");
 const hintEmoji = document.querySelector(".hint-emoji");
@@ -30,14 +29,28 @@ const emojiObj = {
   lost: "🤦‍♀️",
   win: "🎉",
 };
+let score;
 let highestScore = localStorage.getItem("highestScore");
 highestScoreSpan.textContent = highestScore;
 
 //define functions
+
+const displayMessage = (element, message) => {
+  element.textContent = message;
+};
+
+const disableButton = (element) => {
+  element.disabled = true;
+};
+
+const enableButton = (element) => {
+  element.disabled = false;
+};
+
 const checkIsFinished = () => {
   if (guessArr.length >= 5 || countTry >= 5) {
     hintText.textContent = `You lost🤦‍♀️. Generated number was "${randomNum}". Generate a new random number to start🏁.`;
-    hintEmoji.textContent = "";
+    displayMessage(hintEmoji, "");
     checkButton.disabled = true;
     randomNum = null;
     return;
@@ -48,9 +61,9 @@ const startGame = () => {
   countTry = 0;
   guessArr = [];
   checkButton.disabled = false;
-  hintText.textContent = "Random number created.";
-  hintEmoji.textContent = "";
-  scoreSpan.textContent = "";
+  displayMessage(hintText, "Random number created");
+  displayMessage(hintEmoji, "");
+  displayMessage(scoreSpan, "");
 };
 
 const createRandomNum = () => {
@@ -67,35 +80,40 @@ const setLocalStorage = () => {
 
 const congratulateWinner = () => {
   checkButton.disabled = true;
-  hintText.textContent = "You got it!";
-  hintEmoji.textContent = emojiObj.win;
+  displayMessage(hintText, "You got it");
+  displayMessage(hintEmoji, emojiObj.win);
 
   if (guessArr.length === 0) {
-    scoreSpan.textContent = "100";
-    highestScore = 100;
+    score = 100;
+    displayMessage(scoreSpan, score);
   } else if (guessArr.length === 1) {
-    scoreSpan.textContent = "50";
-    highestScore = 50;
+    score = 50;
+    displayMessage(scoreSpan, score);
   } else if (guessArr.length === 2) {
-    scoreSpan.textContent = "30";
-    highestScore = 30;
+    score = 30;
+    displayMessage(scoreSpan, score);
   } else if (guessArr.length === 3) {
-    scoreSpan.textContent = "10";
-    highestScore = 10;
+    score = 10;
+    displayMessage(scoreSpan, score);
   } else if (guessArr.length === 4) {
-    scoreSpan.textContent = "5";
-    highestScore = 5;
+    score = 5;
+    displayMessage(scoreSpan, score);
   }
-  highestScoreSpan.textContent = highestScore;
+  if (score > highestScore) {
+    highestScore = score;
+    displayMessage(highestScoreSpan, highestScore);
+  }
   setLocalStorage();
 };
 
 const determineCloseness = (countTry) => {
   if (countTry === 1) {
-    hintText.textContent =
-      "Hint will be given starting from the second guess😉.";
+    displayMessage(
+      hintText,
+      "Hint will be given starting from the second guess😉."
+    );
   } else if (countTry === 2) {
-    hintText.textContent = "";
+    displayMessage(hintText, "");
     previousGuess = guessArr[0];
     currentGuess = guessArr[1];
     Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
@@ -150,6 +168,7 @@ const decrease = () => {
 startButton.addEventListener("click", () => {
   startGame();
   randomNum = createRandomNum();
+  console.log(randomNum);
 });
 
 checkButton.addEventListener("click", () => {
