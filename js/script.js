@@ -51,7 +51,7 @@ const checkIsFinished = () => {
   if (guessArr.length >= 5 || countTry >= 5) {
     hintText.textContent = `You lost🤦‍♀️. Generated number was "${randomNum}". Generate a new random number to start🏁.`;
     displayMessage(hintEmoji, "");
-    checkButton.disabled = true;
+    disableButton(checkButton);
     randomNum = null;
     return;
   }
@@ -60,7 +60,7 @@ const checkIsFinished = () => {
 const startGame = () => {
   countTry = 0;
   guessArr = [];
-  checkButton.disabled = false;
+  enableButton(checkButton);
   displayMessage(hintText, "Random number created");
   displayMessage(hintEmoji, "");
   displayMessage(scoreSpan, "");
@@ -79,10 +79,10 @@ const setLocalStorage = () => {
 };
 
 const congratulateWinner = () => {
-  checkButton.disabled = true;
+  disableButton(checkButton);
   displayMessage(hintText, "You got it");
   displayMessage(hintEmoji, emojiObj.win);
-
+  //TODO BU AŞAĞIDAKİ KISMI CALCULATESCORE OLARAK FUNCTİON YAP
   if (guessArr.length === 0) {
     score = 100;
     displayMessage(scoreSpan, score);
