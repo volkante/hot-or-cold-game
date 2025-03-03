@@ -99,6 +99,7 @@ const congratulateWinner = () => {
     score = 5;
     displayMessage(scoreSpan, score);
   }
+
   if (score > highestScore) {
     highestScore = score;
     displayMessage(highestScoreSpan, highestScore);
@@ -117,7 +118,7 @@ const determineCloseness = (countTry) => {
     previousGuess = guessArr[0];
     currentGuess = guessArr[1];
     Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
-      ? (hintEmoji.textContent = emojiObj.cold)
+      ? (hintEmoji.textContent = emojiObj.cold) //TODO DİSPLAYMESSAGE FUNCTION'I İÇİNE ALMA
       : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
       ? (hintEmoji.textContent = emojiObj.hot)
       : (hintEmoji.textContent = emojiObj.neutral);
@@ -168,13 +169,11 @@ const decrease = () => {
 startButton.addEventListener("click", () => {
   startGame();
   randomNum = createRandomNum();
-  console.log(randomNum);
 });
 
 checkButton.addEventListener("click", () => {
   checkIsFinished();
   const userGuess = value;
-  console.log("user guess", userGuess);
   if (userGuess === randomNum) {
     congratulateWinner();
     countTry = 0;
@@ -187,6 +186,5 @@ checkButton.addEventListener("click", () => {
 });
 
 //TODO süre eklenip puan onun üzerinden hesaplanabilir. Ne kadar kısa süre o kadar çok puan.
-//TODO ilki üzerinden highest score eklenip localstorage'da tutulabilir. Şu an 100 puanı tutmaya gerek yok ama.
-//TODO kazanınca konfeti atılabilir. Ekranda
+//TODO kazanınca konfeti atılabilir. Ekranda göstermek için.
 //TODO responsive tasarım. Mobile'e uygun yapılmalı. Şu an yazılar kayıyor.
