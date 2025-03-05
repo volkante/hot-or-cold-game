@@ -49,7 +49,7 @@ const enableButton = (element) => {
 
 const checkIsFinished = () => {
   if (guessArr.length >= 5 || countTry >= 5) {
-    hintText.textContent = `You lost🤦‍♀️. Generated number was "${randomNum}". Generate a new random number to start🏁.`;
+    hintText.textContent = `You lost 🤦‍♀️. Generated number was "${randomNum}". Generate a new random number to start 🏁.`;
     displayMessage(hintEmoji, "");
     disableButton(checkButton);
     randomNum = null;
@@ -82,7 +82,7 @@ const congratulateWinner = () => {
   disableButton(checkButton);
   displayMessage(hintText, "You got it");
   displayMessage(hintEmoji, emojiObj.win);
-  //TODO BU AŞAĞIDAKİ KISMI CALCULATESCORE OLARAK FUNCTİON YAP
+  //TODO BU AŞAĞIDAKİ KISMI CALCULATESCORE OLARAK FUNCTİON YAP!
   if (guessArr.length === 0) {
     score = 100;
     displayMessage(scoreSpan, score);
@@ -118,7 +118,7 @@ const determineCloseness = (countTry) => {
     previousGuess = guessArr[0];
     currentGuess = guessArr[1];
     Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
-      ? (hintEmoji.textContent = emojiObj.cold) //TODO DİSPLAYMESSAGE FUNCTION'I İÇİNE ALMA
+      ? (hintEmoji.textContent = emojiObj.cold) //TODO DİSPLAYMESSAGE FUNCTION'I İÇİNE AL!
       : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
       ? (hintEmoji.textContent = emojiObj.hot)
       : (hintEmoji.textContent = emojiObj.neutral);
