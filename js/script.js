@@ -78,27 +78,32 @@ const setLocalStorage = () => {
   }
 };
 
+const calculateScore = (length) => {
+  switch (length) {
+    case 0:
+      score = 100;
+      break;
+    case 1:
+      score = 50;
+      break;
+    case 2:
+      score = 30;
+      break;
+    case 3:
+      score = 10;
+      break;
+    case 4:
+      score = 5;
+      break;
+  }
+};
+
 const congratulateWinner = () => {
   disableButton(checkButton);
   displayMessage(hintText, "You got it");
   displayMessage(hintEmoji, emojiObj.win);
-  //TODO BU AŞAĞIDAKİ KISMI CALCULATESCORE OLARAK FUNCTİON YAP!
-  if (guessArr.length === 0) {
-    score = 100;
-    displayMessage(scoreSpan, score);
-  } else if (guessArr.length === 1) {
-    score = 50;
-    displayMessage(scoreSpan, score);
-  } else if (guessArr.length === 2) {
-    score = 30;
-    displayMessage(scoreSpan, score);
-  } else if (guessArr.length === 3) {
-    score = 10;
-    displayMessage(scoreSpan, score);
-  } else if (guessArr.length === 4) {
-    score = 5;
-    displayMessage(scoreSpan, score);
-  }
+  calculateScore(guessArr.length);
+  displayMessage(scoreSpan, score);
 
   if (score > highestScore) {
     highestScore = score;
