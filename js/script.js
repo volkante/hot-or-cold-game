@@ -112,7 +112,7 @@ const congratulateWinner = () => {
   setLocalStorage();
 };
 
-const determineCloseness = (countTry) => {
+/* const determineCloseness = (countTry) => {
   if (countTry === 1) {
     displayMessage(
       hintText,
@@ -143,6 +143,40 @@ const determineCloseness = (countTry) => {
       : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
       ? (hintEmoji.textContent = emojiObj.hot)
       : (hintEmoji.textContent = emojiObj.neutral);
+  }
+}; */
+
+const determineCloseness = (countTry) => {
+  if (countTry === 1) {
+    displayMessage(
+      hintText,
+      "Hint will be given starting from the second guess😉."
+    );
+  } else if (countTry === 2) {
+    displayMessage(hintText, "");
+    previousGuess = guessArr[0];
+    currentGuess = guessArr[1];
+    Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
+      ? displayMessage(hintEmoji, emojiObj.cold)
+      : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
+      ? displayMessage(hintEmoji, emojiObj.hot)
+      : displayMessage(hintEmoji, emojiObj.neutral);
+  } else if (countTry === 3) {
+    previousGuess = guessArr[1];
+    currentGuess = guessArr[2];
+    Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
+      ? displayMessage(hintEmoji, emojiObj.cold)
+      : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
+      ? displayMessage(hintEmoji, emojiObj.hot)
+      : displayMessage(hintEmoji, emojiObj.neutral);
+  } else if (countTry === 4) {
+    previousGuess = guessArr[2];
+    currentGuess = guessArr[3];
+    Math.abs(randomNum - currentGuess) > Math.abs(randomNum - previousGuess)
+      ? displayMessage(hintEmoji, emojiObj.cold)
+      : Math.abs(randomNum - currentGuess) < Math.abs(randomNum - previousGuess)
+      ? displayMessage(hintEmoji, emojiObj.hot)
+      : displayMessage(hintEmoji, emojiObj.neutral);
   }
 };
 
