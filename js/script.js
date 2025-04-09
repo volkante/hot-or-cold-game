@@ -1,3 +1,5 @@
+"use strict";
+
 //select elements
 const startButton = document.querySelector(".start-button");
 const checkButton = document.querySelector(".check-button");
